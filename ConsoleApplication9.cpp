@@ -67,7 +67,24 @@ public:
         }
         Node* current = first;
         unsigned int index = 0;
-        while(index<position)
+        while (index < position) {
+            current = current->next;
+            index++;
+        }
+        if (current->prev != nullptr) {
+            current->prev->next = current->next;
+        }
+        else {
+            first = current->next;
+        }
+        if (current->next != nullptr) {
+            current->next->prev = current->prev;
+        }
+        else {
+            last = current->prev;
+        }
+        delete current;
+        num_elems--;
     }
 
     void insert(unsigned int position, const int& value) {
@@ -109,7 +126,7 @@ public:
             std::cout << current->value << " ";
             current = current->next;
         }
-        std::cout << std::endl;
+        cout << endl;
     };
 
     void recursivePrint(Node current) const {
@@ -132,11 +149,21 @@ int main() {
     myList.print();
     myList.insert(3, 0);
     myList.print();
+    myList.push_front(5);
+    myList.print();
     myList.insert(2, 2);
+    myList.print();
+    myList.erase(3);
+    myList.print();
+    myList.push_back(4);
     myList.print();
     myList.insert(1, 3);
     myList.print();
+    myList.push_front(2);
+    myList.print();
     myList.insert(0, 4);
+    myList.print();
+    myList.erase(2);
     myList.print();
 
     return 0;
